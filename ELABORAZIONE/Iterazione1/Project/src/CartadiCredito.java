@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CartadiCredito {
@@ -5,9 +6,9 @@ public class CartadiCredito {
     private static int lastnumber = 9999; //secondo blocco da 4 lo decrementiamo fino a 1000
     private String numeroCarta; //
     private int pinCarta;
-    private final Date scadenza;
+    private final LocalDate scadenza;
 
-    public CartadiCredito(Date scadenza) {
+    public CartadiCredito(LocalDate scadenza) {
         this.scadenza = scadenza;
         generaNumeroCarta();
         generaPin();
@@ -32,7 +33,7 @@ public class CartadiCredito {
         return pinCarta;
     }
 
-    public Date getScadenza() {
+    public LocalDate getScadenza() {
         return scadenza;
     }
 
