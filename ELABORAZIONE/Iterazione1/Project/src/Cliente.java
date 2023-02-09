@@ -1,10 +1,11 @@
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Cliente {
     private String nome,cognome,telefono;
-    private Date dataNascita;
+    private LocalDate dataNascita;
 
-    public Cliente(String nome, String cognome, String telefono, Date dataNascita) {
+    public Cliente(String nome, String cognome, String telefono, LocalDate dataNascita) {
         this.nome = nome;
         this.cognome = cognome;
         this.telefono = telefono;
@@ -35,11 +36,11 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public Date getDataNascita() {
+    public LocalDate getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(Date dataNascita) {
+    public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
     }
 
