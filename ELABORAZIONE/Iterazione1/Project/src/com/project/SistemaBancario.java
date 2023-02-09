@@ -1,4 +1,4 @@
-
+package com.project;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -64,11 +64,22 @@ public class SistemaBancario {
 
     public void inserisciNuovoCliente(String nome, String cognome,LocalDate datanascita,String telefono)
     {
+        if(!telefono.matches("^[0-9]*$")){
+            System.err.println("Errore: inserire numero di telefono con caratteri numerici");
+            return;
+        }
+        if(datanascita.compareTo(LocalDate.now()) > 0){
+            System.err.println("Errore: inserire una data antecedente alla data odierna");
+            return;
+        }
         this.clientecorrente= new Cliente(nome,cognome,datanascita,telefono);
     }
     public void inserisciConto(int tipologia,double saldo)
     {
-
+        if(saldo < 0){
+            System.err.println("Errore: inserire saldo maggiore o uguale a zero");
+            return;
+        }
         switch(tipologia)
         {
             case 1:

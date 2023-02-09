@@ -1,3 +1,4 @@
+package com.project;
 public class ContoSilver extends ContoCorrente{
     private int costoannuo=20;
     public ContoSilver(double saldo) {
@@ -10,7 +11,10 @@ public class ContoSilver extends ContoCorrente{
     }
 
     public void setCostoannuo(int costoannuo) {
-        this.costoannuo = costoannuo;
+        if(costoannuo > 0)
+            this.costoannuo = costoannuo;
+        else
+            this.costoannuo = 0;
     }
 
     @Override

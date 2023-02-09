@@ -1,3 +1,5 @@
+package com.project;
+
 import java.time.LocalDate;
 
 public class Main {
@@ -6,7 +8,7 @@ public class Main {
         SistemaBancario sistema= SistemaBancario.getInstance();
         //inserimento cliente prova
 
-        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2000,5,12),"34794038");
+        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
         sistema.inserisciConto(2,0);
         sistema.confermaOperazione();
 

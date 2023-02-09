@@ -1,3 +1,4 @@
+package com.project;
 public class ContoPlatinum extends ContoCorrente{
     private int costoannuo=60;
 
@@ -11,7 +12,10 @@ public class ContoPlatinum extends ContoCorrente{
     }
 
     public void setCostoannuo(int costoannuo) {
-        this.costoannuo = costoannuo;
+        if(costoannuo > 0)
+            this.costoannuo = costoannuo;
+        else
+            this.costoannuo = 0;
     }
 
     @Override
