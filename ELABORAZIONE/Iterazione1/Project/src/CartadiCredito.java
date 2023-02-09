@@ -36,4 +36,11 @@ public class CartadiCredito {
         return scadenza;
     }
 
+    @Override
+    public String toString() {
+        return "CartadiCredito{" +
+                "numeroCarta='" + numeroCarta + '\'' +
+                ", scadenza=" + scadenza +
+                '}';
+    }
 }
