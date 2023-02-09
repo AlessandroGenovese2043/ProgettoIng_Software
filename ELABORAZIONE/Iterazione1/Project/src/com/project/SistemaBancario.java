@@ -24,6 +24,9 @@ public class SistemaBancario {
         return sistemabancario;
     }
 
+    public Cliente getClientecorrente() {
+        return clientecorrente;
+    }
 
     public ContoCorrente getCorrente() {
         return corrente;
