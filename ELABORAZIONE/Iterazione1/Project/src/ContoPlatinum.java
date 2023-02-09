@@ -1,9 +1,9 @@
 public class ContoPlatinum extends ContoCorrente{
-    private int costoannuo;
+    private int costoannuo=60;
 
-    public ContoPlatinum(double saldo, int costoannuo) {
+    public ContoPlatinum(double saldo) {
         super(saldo);
-        this.costoannuo = costoannuo;
+
     }
 
     public int getCostoannuo() {
