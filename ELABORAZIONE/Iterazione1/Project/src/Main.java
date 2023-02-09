@@ -1,5 +1,28 @@
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        System.out.println("----------SISTEMA BANCARIO-----------");
+        SistemaBancario sistema= SistemaBancario.getInstance();
+        //inserimento cliente prova
+
+        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2000,5,12),"34794038");
+        sistema.inserisciConto(2,0);
+        sistema.confermaOperazione();
+
+        sistema.inserisciNuovoCliente("Davide","Verdi", LocalDate.of(2005,1,14),"33366038");
+        sistema.inserisciConto(1,0);
+        sistema.confermaOperazione();
+
+        sistema.inserisciNuovoCliente("Matteo","Neri", LocalDate.of(1989,6,2),"366943578");
+        sistema.inserisciConto(3,45);
+        sistema.confermaOperazione();
+
+
+        sistema.stampa();
+
+
+
     }
+
 }

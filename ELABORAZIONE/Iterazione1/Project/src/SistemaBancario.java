@@ -47,8 +47,19 @@ public class SistemaBancario {
     @Override
     public String toString() {
         return "SistemaBancario{" +
-                ", elenco=" + elenco +
-                '}';
+                " elenco=" + elenco +
+                " } ";
+    }
+
+    public void stampa()
+    {
+        for (ContoCorrente conto:elenco.keySet())
+        {
+            System.out.println("\nConto corrente: "+ conto+"\n");
+            System.out.println("Cliente: "+elenco.get(conto));
+        }
+
+
     }
 
     public void inserisciNuovoCliente(String nome, String cognome,LocalDate datanascita,String telefono)
