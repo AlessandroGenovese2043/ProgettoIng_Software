@@ -20,7 +20,7 @@ public class Main {
         sistema.inserisciConto(3,45);
         sistema.confermaOperazione();
 
-
+        System.out.println("Stampa mappa");
         sistema.stampa();
 
 
