@@ -127,4 +127,17 @@ public class SistemaBancario {
 
     }
 
+    public double verificaCarta(String numeroCartaInserito){
+        List<ContoCorrente> conti= getElencoConto();
+        double saldo;
+        for (ContoCorrente c:conti) {
+            saldo=c.findNumeroCarta(numeroCartaInserito);
+            if(saldo!=-1){
+                return saldo;
+            }
+        }
+        return -1;
+
+    }
+
 }
