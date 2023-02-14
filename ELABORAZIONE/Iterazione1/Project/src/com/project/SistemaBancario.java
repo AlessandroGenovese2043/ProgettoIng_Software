@@ -9,7 +9,7 @@ import java.util.Map;
 public class SistemaBancario {
     private static SistemaBancario sistemabancario;
     private ContoCorrente corrente;
-    private Cliente clientecorrente;
+    private Cliente clientecorrente = null;
     private Map<ContoCorrente,Cliente>elenco;
 
     public SistemaBancario() {
@@ -75,12 +75,23 @@ public class SistemaBancario {
             System.err.println("Errore: inserire una data antecedente alla data odierna");
             return;
         }
+        for(Cliente c: getElencoCliente()){
+            if(c.getTelefono().compareTo(telefono) == 0){
+                System.err.println("Errore: il cliente "+ c.toString()+ " risulta già possedere un conto corrente");
+                return;
+            }
+        }
         this.clientecorrente= new Cliente(nome,cognome,datanascita,telefono);
+
     }
     public void inserisciConto(int tipologia,double saldo)
     {
         if(saldo < 0){
             System.err.println("Errore: inserire saldo maggiore o uguale a zero");
+            return;
+        }
+        if( clientecorrente == null){
+            System.err.println("Errore: prima di creare un conto inserire il nuovo cliente");
             return;
         }
         switch(tipologia)
@@ -111,6 +122,8 @@ public class SistemaBancario {
             this.elenco.put(corrente,clientecorrente);
             System.out.println("Operazione completata con successo!!");
         }
+        clientecorrente = null;
+        corrente = null;
 
     }
 

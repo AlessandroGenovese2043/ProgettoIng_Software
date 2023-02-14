@@ -27,6 +27,7 @@ class SistemaBancarioTest {
 
     @Test
     void inserisciConto() {
+        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
         sistema.inserisciConto(2,0);
         assertNotNull(sistema.getCorrente());
     }
