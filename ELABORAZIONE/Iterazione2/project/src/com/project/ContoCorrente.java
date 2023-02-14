@@ -36,9 +36,14 @@ public class ContoCorrente {
     public CartadiCredito getCartaAssociata() {
         return cartaAssociata;
     }
-    public String getNumeroCarta() {
+    public double findNumeroCarta(String numeroCartaInserita) {
         String numeroCarta = cartaAssociata.getNumeroCarta();
-        return numeroCarta;
+
+        if(numeroCartaInserita.compareTo(numeroCarta)==0)
+        {
+            return saldo;
+        }
+        return -1;
     }
     public void setSaldo(double saldo) {
         this.saldo = saldo;

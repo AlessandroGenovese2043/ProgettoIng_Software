@@ -20,6 +20,19 @@ public class Main {
         sistema.inserisciConto(3,45);
         sistema.confermaOperazione();
 
+        double saldo;
+
+       saldo= sistema.verificaCarta("10029997"); //worka
+       if(saldo!=-1)
+       {
+           System.out.println("Il tuo saldo attuale è: "+saldo);
+       }else
+           System.out.println("Mi dispiace carta non presente nel sistema");
+
+
+
+
+
         System.out.println("Stampa mappa");
         sistema.stampa();
 
