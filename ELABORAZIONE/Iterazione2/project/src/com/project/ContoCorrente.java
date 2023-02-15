@@ -1,17 +1,20 @@
 package com.project;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContoCorrente {
     private static int numberIban= 100000;
     private final String firstLetter = "IT";
     private String IBAN;
     private double saldo;
-
+    private List<OperazioneBancaria> lista_movimenti;
     private CartadiCredito cartaAssociata;
     public ContoCorrente(double saldo) {
         this.saldo = saldo;
         associaCartaCredito();
         associaIBAN();
+        this.lista_movimenti  = new ArrayList<>();
     }
 
     private void associaIBAN() {
@@ -56,5 +59,56 @@ public class ContoCorrente {
                 ", saldo=" + saldo +
                 ", cartaAssociata=" + cartaAssociata +
                 '}';
+    }
+
+    public double verificaPin(int pinCartaInserito, double importo, String operazione){
+        if(pinCartaInserito == cartaAssociata.getPinCarta()){
+            //il pin è corretto
+            if(operazione.compareTo("deposito") == 0){
+                Deposito d = new Deposito(importo);
+                lista_movimenti.add(d);
+                aggiornaSaldo(importo, operazione);
+                return saldo;
+            }
+            if(importo < saldo && operazione.compareTo("prelievo") == 0){
+                Prelievo p = new Prelievo(importo);
+                lista_movimenti.add(p);
+                aggiornaSaldo(importo, operazione);
+                return saldo; //saldoAttuale
+            }else{
+                System.err.println("Errore: l'importo è superiore al saldo complessivo");
+
+            }
+        }else{
+            System.err.println("Errore: Il pin inserito è errato");
+        }
+        return -1;
+    }
+
+    public void aggiornaSaldo(double importo, String operazione){
+        if(operazione.compareTo("deposito") == 0){
+            saldo = saldo + importo - Deposito.getCommissione();
+        }
+        else {
+            saldo = saldo - importo;
+        }
+        System.out.println("Saldo aggiornato");
+    }
+
+    public List<OperazioneBancaria> getLista_movimenti() {
+        return lista_movimenti;
+    }
+
+    public void stampaListaMovimenti(){
+        for (OperazioneBancaria op:lista_movimenti)
+        {
+            if(op.getClass() == Prelievo.class){
+                System.out.println("\nPrelievo: "+ op + "\n");
+            }
+            else{
+                System.out.println("\nDeposito: " + op + " COMMISSIONE:" + ((Deposito) op).getCommissioneAttuale() + " euro\n");
+            }
+
+        }
     }
 }

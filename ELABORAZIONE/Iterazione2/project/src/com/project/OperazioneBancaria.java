@@ -6,11 +6,17 @@ public abstract class OperazioneBancaria {
     private LocalDate data;
     private double importo;
     private static int idOperazione=1;
+    private int idOp;
 
     public OperazioneBancaria(double importo) {
         this.data=LocalDate.now();
         this.importo = importo;
+        this.idOp = idOperazione;
         idOperazione++;
+    }
+
+    public int getId() {
+        return idOp;
     }
 
     public LocalDate getData() {
@@ -34,7 +40,7 @@ public abstract class OperazioneBancaria {
         return "OperazioneBancaria{" +
                 "data=" + data +
                 ", importo=" + importo +
-                ", idOperazione=" + idOperazione +
+                ", idOperazione=" + idOp +
                 '}';
     }
 }

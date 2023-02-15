@@ -41,7 +41,7 @@ public class CartadiCredito {
     public String toString() {
         return "CartadiCredito{" +
                 "numeroCarta='" + numeroCarta + '\'' +
-                ", scadenza=" + scadenza +
+                ", scadenza=" + scadenza + ", pin=" + pinCarta+
                 '}';
     }
 }

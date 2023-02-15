@@ -127,17 +127,32 @@ public class SistemaBancario {
 
     }
 
-    public double verificaCarta(String numeroCartaInserito){
+    public ContoCorrente verificaCarta(String numeroCartaInserito){
         List<ContoCorrente> conti= getElencoConto();
         double saldo;
         for (ContoCorrente c:conti) {
             saldo=c.findNumeroCarta(numeroCartaInserito);
             if(saldo!=-1){
-                return saldo;
+                return c;
             }
         }
-        return -1;
+        return null;
+
+    }
+    public void effetuaPrelievo(int pinCartaInserito, double importo, ContoCorrente conto) {
+        double saldo = conto.verificaPin(pinCartaInserito, importo, "prelievo");
+        if(saldo != -1){
+            System.out.println("Il saldo Attuale del conto (IBAN " + conto.getIBAN() + ") e'"+ saldo);
+
+        }
 
     }
 
+    public void effetuaDeposito(int pinDeposito, int importoDeposito, ContoCorrente conto) {
+        double saldo = conto.verificaPin(pinDeposito, importoDeposito, "deposito");
+        if(saldo != -1){
+            System.out.println("Il saldo Attuale del conto (IBAN " + conto.getIBAN() + ") e'"+ saldo);
+
+        }
+    }
 }

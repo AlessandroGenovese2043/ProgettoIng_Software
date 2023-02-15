@@ -1,10 +1,22 @@
 package com.project;
 
 public class Deposito extends OperazioneBancaria{
-    private int commissione;
-
-    public Deposito(double importo, int commissione) {
+    private static int commissione = 2;
+    private int commissioneAttuale;
+    public Deposito(double importo) {
         super(importo);
-        this.commissione = commissione;
+        this.commissioneAttuale = commissione;
+    }
+
+    public static int getCommissione() {
+        return commissione;
+    }
+
+    public static void setCommissione(int commissione) {
+        Deposito.commissione = commissione;
+    }
+
+    public int getCommissioneAttuale() {
+        return commissioneAttuale;
     }
 }
