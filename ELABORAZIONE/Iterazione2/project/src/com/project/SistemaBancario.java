@@ -58,41 +58,41 @@ public class SistemaBancario {
     {
         for (ContoCorrente conto:elenco.keySet())
         {
-            System.out.println("\nConto corrente: "+ conto+"\n");
-            System.out.println("Cliente: "+elenco.get(conto));
+            System.out.println("\nConto corrente: "+ conto);
+            System.out.println("Cliente: "+elenco.get(conto)+"\n");
         }
 
 
     }
 
-    public void inserisciNuovoCliente(String nome, String cognome,LocalDate datanascita,String telefono)
+    public Cliente inserisciNuovoCliente(String nome, String cognome,LocalDate datanascita,String telefono)
     {
         if(!telefono.matches("^[0-9]*$")){
             System.err.println("Errore: inserire numero di telefono con caratteri numerici");
-            return;
+            return null;
         }
         if(datanascita.compareTo(LocalDate.now()) > 0){
             System.err.println("Errore: inserire una data antecedente alla data odierna");
-            return;
+            return null;
         }
         for(Cliente c: getElencoCliente()){
             if(c.getTelefono().compareTo(telefono) == 0){
                 System.err.println("Errore: il cliente "+ c.toString()+ " risulta già possedere un conto corrente");
-                return;
+                return null;
             }
         }
         this.clientecorrente= new Cliente(nome,cognome,datanascita,telefono);
-
+        return clientecorrente;
     }
-    public void inserisciConto(int tipologia,double saldo)
+    public ContoCorrente inserisciConto(int tipologia,double saldo)
     {
         if(saldo < 0){
             System.err.println("Errore: inserire saldo maggiore o uguale a zero");
-            return;
+            return null;
         }
         if( clientecorrente == null){
             System.err.println("Errore: prima di creare un conto inserire il nuovo cliente");
-            return;
+            return null;
         }
         switch(tipologia)
         {
@@ -110,9 +110,11 @@ public class SistemaBancario {
 
             default:
                 System.out.println("Indicare una delle 3 tipologie indicate");
+                return null;
 
 
         }
+        return corrente;
     }
 
     public void confermaOperazione()

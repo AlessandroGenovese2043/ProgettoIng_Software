@@ -15,4 +15,5 @@ class CartadiCreditoTest {
         assertNotNull(carta.getPinCarta());
         assertNotNull(carta.getScadenza());
     }
+
 }
