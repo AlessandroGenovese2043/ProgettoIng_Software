@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContoCorrente {
+public abstract class ContoCorrente {
     private static int numberIban= 100000;
     private final String firstLetter = "IT";
     private String IBAN;
@@ -70,13 +70,13 @@ public class ContoCorrente {
                 aggiornaSaldo(importo, operazione);
                 return saldo;
             }
-            if(importo < saldo && operazione.compareTo("prelievo") == 0){
+            if(importo < saldo && operazione.compareTo("prelievo") == 0 && importo < this.massimoPrelevabile()){
                 Prelievo p = new Prelievo(importo);
                 lista_movimenti.add(p);
                 aggiornaSaldo(importo, operazione);
                 return saldo; //saldoAttuale
             }else{
-                System.err.println("Errore: l'importo è superiore al saldo complessivo");
+                System.err.println("Errore: l'importo non è accettabile");
 
             }
         }else{
@@ -111,4 +111,5 @@ public class ContoCorrente {
 
         }
     }
+    public abstract double massimoPrelevabile();
 }

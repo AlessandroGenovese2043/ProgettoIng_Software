@@ -15,7 +15,7 @@ public class Main {
         sistema.confermaOperazione();
 
         sistema.inserisciNuovoCliente("Davide","Verdi", LocalDate.of(2005,1,14),"33366038");
-        sistema.inserisciConto(1,0);
+        sistema.inserisciConto(1,10000);
         sistema.confermaOperazione();
 
         sistema.inserisciNuovoCliente("Matteo","Neri", LocalDate.of(1989,6,2),"366943578");
