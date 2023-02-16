@@ -70,7 +70,8 @@ public abstract class ContoCorrente {
                 aggiornaSaldo(importo, operazione);
                 return saldo;
             }
-            if(importo < saldo && operazione.compareTo("prelievo") == 0 && importo < this.massimoPrelevabile()){
+
+            if(importo < saldo && operazione.compareTo("prelievo") == 0 && importo < (this.massimoPrelevabile() - verificaMovimento())){
                 Prelievo p = new Prelievo(importo);
                 lista_movimenti.add(p);
                 aggiornaSaldo(importo, operazione);
@@ -112,4 +113,21 @@ public abstract class ContoCorrente {
         }
     }
     public abstract double massimoPrelevabile();
+
+    public double verificaMovimento(){ //Controllo dei prelievi giornalieri
+        double totale = 0;
+        if(lista_movimenti.size() == 0){
+            return totale;
+        }
+        for(OperazioneBancaria op : lista_movimenti) {
+            if (op.getClass() == Prelievo.class && op.getData().isEqual(LocalDate.now())) {
+                totale = totale + op.getImporto();
+                System.out.println("" + op + totale);
+            }
+        }
+
+        return totale;
+    }
+
+
 }

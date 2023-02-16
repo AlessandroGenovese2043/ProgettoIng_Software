@@ -29,25 +29,27 @@ public class Main {
         if(conto == null){//il numero di carta non esiste
             return;
         }
-        System.out.println("INSERIMENTO PIN E IMPORTO");
-        System.out.println("Inserisci numero pin");
         Scanner dati = new Scanner(System.in);
-        int pin = Integer.parseInt(dati.nextLine());
-        System.out.flush();
-        int a = -1;
-        int importo = 0;
-        while(a < 0) {
-            System.out.println("Inserisci importo");
-            importo = Integer.parseInt(dati.nextLine());
+        for(int i = 0; i < 3; i++) {
+            System.out.println("INSERIMENTO PIN E IMPORTO");
+            System.out.println("Inserisci numero pin");
+            int pin = Integer.parseInt(dati.nextLine());
             System.out.flush();
-            if( importo > 0){
-                 a = 1;
+            int a = -1;
+            int importo = 0;
+            while (a < 0) {
+                System.out.println("Inserisci importo");
+                importo = Integer.parseInt(dati.nextLine());
+                System.out.flush();
+                if (importo > 0) {
+                    a = 1;
+                } else {
+                    System.err.println("Errore: inserire un numero maggiore di zero");
+                }
             }
-            else{
-                System.err.println("Errore: inserire un numero maggiore di zero");
-            }
+            sistema.effetuaPrelievo(pin, importo, conto);
+
         }
-        sistema.effetuaPrelievo(pin, importo, conto);
 
         System.out.println("OPERAZIONE DI DEPOSITO");
         conto = OperazioneDiVerifica(sistema);
