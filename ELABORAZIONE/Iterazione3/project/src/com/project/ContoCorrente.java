@@ -113,6 +113,7 @@ public abstract class ContoCorrente {
         }
     }
     public abstract double massimoPrelevabile();
+    public abstract double getTassoInt();
 
     public double verificaMovimento(){ //Controllo dei prelievi giornalieri
         double totale = 0;

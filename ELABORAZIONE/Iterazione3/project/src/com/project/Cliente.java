@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Cliente {
     private String nome,cognome,telefono;
     private LocalDate dataNascita;
+    private CartadiCredito cartadiCredito;
 
     public Cliente(String nome, String cognome,  LocalDate dataNascita,String telefono) {
         this.nome = nome;
@@ -55,4 +56,11 @@ public class Cliente {
                 '}';
     }
 
+    public void setCartadiCredito(CartadiCredito carta) {
+        this.cartadiCredito = carta;
+    }
+
+    public CartadiCredito getCartadiCredito() {
+        return cartadiCredito;
+    }
 }

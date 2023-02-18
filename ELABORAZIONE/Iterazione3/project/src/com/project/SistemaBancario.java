@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class SistemaBancario {
     private static SistemaBancario sistemabancario;
+
     private ContoCorrente corrente;
     private Cliente clientecorrente = null;
     private Map<ContoCorrente,Cliente>elenco;
@@ -121,6 +122,7 @@ public class SistemaBancario {
     {
         if(clientecorrente!= null && corrente!=null)
         {
+            clientecorrente.setCartadiCredito(corrente.getCartaAssociata());
             this.elenco.put(corrente,clientecorrente);
             System.out.println("Operazione completata con successo!!");
         }
@@ -157,4 +159,6 @@ public class SistemaBancario {
 
         }
     }
+
+
 }
