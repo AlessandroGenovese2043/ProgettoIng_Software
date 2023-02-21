@@ -12,6 +12,7 @@ public class SistemaBancario {
     private ContoCorrente corrente;
     private Cliente clientecorrente = null;
     private Map<ContoCorrente,Cliente>elenco;
+    private Map<String, Cliente> elencoClienti;
 
     public SistemaBancario() {
         this.elenco=new HashMap<>();
@@ -75,12 +76,16 @@ public class SistemaBancario {
         if(datanascita.compareTo(LocalDate.now()) > 0){
             System.err.println("Errore: inserire una data antecedente alla data odierna");
             return null;
-        }
+        } /*
         for(Cliente c: getElencoCliente()){
             if(c.getTelefono().compareTo(telefono) == 0){
                 System.err.println("Errore: il cliente "+ c.toString()+ " risulta già possedere un conto corrente");
                 return null;
             }
+        }*/
+        if(elencoClienti.containsKey(telefono) == true){
+            System.err.println("Errore: il cliente "+ elencoClienti.get(telefono).toString()+ " risulta già possedere un conto corrente");
+            return null;
         }
         this.clientecorrente= new Cliente(nome,cognome,datanascita,telefono);
         return clientecorrente;
@@ -123,6 +128,7 @@ public class SistemaBancario {
         if(clientecorrente!= null && corrente!=null)
         {
             clientecorrente.setCartadiCredito(corrente.getCartaAssociata());
+            this.elencoClienti.put(clientecorrente.getTelefono(), clientecorrente);
             this.elenco.put(corrente,clientecorrente);
             System.out.println("Operazione completata con successo!!");
         }
@@ -159,6 +165,8 @@ public class SistemaBancario {
 
         }
     }
+
+
 
 
 }
