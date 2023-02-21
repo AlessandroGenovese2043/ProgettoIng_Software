@@ -13,8 +13,5 @@ public enum TipoSettore {
     TipoSettore() {
     }
 
-    @Override
-    public String toString() {
-        return "TipoSettore{}";
-    }
+
 }

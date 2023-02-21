@@ -13,9 +13,12 @@ public class SistemaBancario {
     private Cliente clientecorrente = null;
     private Map<ContoCorrente,Cliente>elenco;
     private Map<String, Cliente> elencoClienti;
+    private Map<Integer, ConsulenteFinanziario> elencoConsulenti;
 
     public SistemaBancario() {
         this.elenco=new HashMap<>();
+        this.elencoClienti=new HashMap<>();
+        this.elencoConsulenti=new HashMap<>();
     }
 
     public static SistemaBancario getInstance() {
@@ -162,6 +165,34 @@ public class SistemaBancario {
         double saldo = conto.verificaPin(pinDeposito, importoDeposito, "deposito");
         if(saldo != -1){
             System.out.println("Il saldo Attuale del conto (IBAN " + conto.getIBAN() + ") e'"+ saldo);
+
+        }
+    }
+
+    public void loadConsulenti()
+    {
+        ConsulenteFinanziario a= new ConsulenteFinanziario("marco@gmail.com","Marco","Rossi",5,TipoSettore.AZIONITECH);
+        this.elencoConsulenti.put(a.getIdConsulente(),a);
+        ConsulenteFinanziario b= new ConsulenteFinanziario("alfio@gmail.com","Alfio","Neri",2,TipoSettore.AZIONI);
+        this.elencoConsulenti.put(b.getIdConsulente(),b);
+        ConsulenteFinanziario c= new ConsulenteFinanziario("francesco@gmail.com","Francesco","Verdi",8,TipoSettore.ETF);
+        this.elencoConsulenti.put(c.getIdConsulente(),c);
+        ConsulenteFinanziario d= new ConsulenteFinanziario("davide@gmail.com","Davide","Bianchi",5,TipoSettore.NTF);
+        this.elencoConsulenti.put(d.getIdConsulente(),d);
+        ConsulenteFinanziario e= new ConsulenteFinanziario("elia@gmail.com","Elia","Gialli",1,TipoSettore.CRIPTOVALUTE);
+        this.elencoConsulenti.put(e.getIdConsulente(),e);
+        ConsulenteFinanziario f= new ConsulenteFinanziario("alessandro@gmail.com","Alessandro","Grasso",5,TipoSettore.MATERIEPRIME);
+        this.elencoConsulenti.put(f.getIdConsulente(),f);
+        ConsulenteFinanziario g= new ConsulenteFinanziario("alfredo@gmail.com","Alfredo","Potter",4,TipoSettore.MATERIEPRIME);
+        this.elencoConsulenti.put(g.getIdConsulente(),g);
+        ConsulenteFinanziario h= new ConsulenteFinanziario("matteo@gmail.com","Matteo","Jackson",7,TipoSettore.AZIONITECH);
+        this.elencoConsulenti.put(h.getIdConsulente(),h);
+    }
+
+    public void stampaConsulenti(){
+        for (ConsulenteFinanziario consulente:elencoConsulenti.values())
+        {
+            System.out.println("\n"+ consulente);
 
         }
     }
