@@ -89,6 +89,7 @@ public class ConsulenteFinanziario {
     @Override
     public String toString() {
         return "ConsulenteFinanziario{" +
+                "idConsulente='" + idConsulente + '\'' +
                 "email='" + email + '\'' +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +

@@ -24,6 +24,10 @@ public class Main {
 
         System.out.println("Stampa mappa");
         sistema.stampa();
+        sistema.loadConsulenti();
+        sistema.stampaConsulenti();
+
+
         System.out.println("OPERAZIONE DI PRELIEVO");
         ContoCorrente conto = OperazioneDiVerifica(sistema);
         if(conto == null){//il numero di carta non esiste
@@ -109,4 +113,6 @@ public class Main {
         }
         return conto;
     }
+
+
 }
