@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class SistemaBancario {
     private static SistemaBancario sistemabancario;
-
+    private ControllerPrestito controllerPrestito;
     private ContoCorrente corrente;
     private Cliente clientecorrente = null;
     private Map<ContoCorrente,Cliente>elenco;
@@ -19,6 +19,7 @@ public class SistemaBancario {
         this.elenco=new HashMap<>();
         this.elencoClienti=new HashMap<>();
         this.elencoConsulenti=new HashMap<>();
+        controllerPrestito = ControllerPrestito.getInstance();
     }
 
     public static SistemaBancario getInstance() {
@@ -197,7 +198,42 @@ public class SistemaBancario {
         }
     }
 
+    public void getCondizioni(ContoCorrente conto, TipoPrestito tipoPrestito, double ammontare, double stipendioCliente) throws Exception {
+        controllerPrestito.getCondizioni(conto, tipoPrestito, ammontare, stipendioCliente);
+    }
+    public void confermaOperazione(ContoCorrente conto){
+        Cliente cliente = elenco.get(conto);
+        controllerPrestito.confermaOperazione(conto,cliente);
+    }
 
+    public List<ConsulenteFinanziario> richiediConsulente(TipoSettore tipoSettore){
+        List<ConsulenteFinanziario> listaConsulenti = new ArrayList<>();
+        for(ConsulenteFinanziario consulente: elencoConsulenti.values()){
+            if(consulente.getSettore() == tipoSettore){
+                listaConsulenti.add(consulente);
+            }
+        }
+        return listaConsulenti;
+    }
+
+    public void confermaConsulente(int idConsulente, String telefonoCliente){
+        Cliente cliente = verificaCliente(telefonoCliente);
+        ConsulenteFinanziario con = elencoConsulenti.get(idConsulente);
+        try{
+            con.aggiungiCliente(cliente);
+        }catch (Exception e){
+            System.err.println("Impossibile aggiungere il cliente");
+        }
+    }
+
+    private Cliente verificaCliente(String telefonoCliente) {
+        if(!telefonoCliente.matches("^[0-9]*$")){
+            System.err.println("Errore: inserire numero di telefono con caratteri numerici");
+            return null;
+        }
+        Cliente cliente = elencoClienti.get(telefonoCliente);
+        return cliente;
+    }
 
 
 }

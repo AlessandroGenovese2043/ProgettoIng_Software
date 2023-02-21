@@ -21,6 +21,7 @@ public class RegistroPrestito {
     public void add(Prestito p)
     {
         this.elencoPrestiti.put(p.getIdPrestito(),p);
+        System.out.println("Il prestito è stato aggiunto all'elenco: " + elencoPrestiti);
     }
 
 

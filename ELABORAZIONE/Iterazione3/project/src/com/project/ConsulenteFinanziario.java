@@ -101,7 +101,9 @@ public class ConsulenteFinanziario {
     public void aggiungiCliente(Cliente cliente) throws Exception {
         if(cliente != null) {
             listaClienti.add(cliente);
-            System.out.println("Il cliente è stato aggiunto corrente alla lista del Consulente");
+            System.out.println("Il cliente è stato aggiunto correttamente alla lista del Consulente");
+            System.out.println(this.getIdConsulente());
+            System.out.println(listaClienti);
         }
         else{
             throw new Exception("Non risulta inserito un cliente");

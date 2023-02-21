@@ -2,6 +2,8 @@ package com.project;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -10,7 +12,7 @@ public class Main {
         SistemaBancario sistema= SistemaBancario.getInstance();
         //inserimento cliente prova
 
-        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
+        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464998");
         sistema.inserisciConto(2,0);
         sistema.confermaOperazione();
 
@@ -25,7 +27,76 @@ public class Main {
         System.out.println("Stampa mappa");
         sistema.stampa();
         sistema.loadConsulenti();
-        sistema.stampaConsulenti();
+        //sistema.stampaConsulenti();
+        List<ConsulenteFinanziario> listaConsulenti = sistema.richiediConsulente(TipoSettore.AZIONI);
+        if(listaConsulenti.size() != 0){
+            for(ConsulenteFinanziario con : listaConsulenti){
+                System.out.println(con.toString());
+            }
+        }
+        else{
+            System.out.println("Purtroppo non c'è nessun consulente per il settore richiesto");
+        }
+        sistema.confermaConsulente(1,"35464998");
+
+        System.out.println("OPERAZIONE DI CONCESSIONE PRESTITO");
+        System.out.flush();
+        Scanner dati = new Scanner(System.in);
+        ContoCorrente contoCorrente = OperazioneDiVerifica(sistema);
+        if(contoCorrente != null){
+            double ammontare = -1;
+            while(ammontare < 0) {
+                System.out.println("Inserisci l'ammontare del prestito");
+                System.out.flush();
+               ammontare = Integer.parseInt(dati.nextLine());
+            }
+            double stipendioCliente = -1;
+            while(stipendioCliente <= 0) {
+                System.out.println("Inserisci lo stipendio annuale del Cliente");
+                System.out.flush();
+                stipendioCliente = Integer.parseInt(dati.nextLine());
+            }
+            int scelta = 0;
+            while(scelta != 1 && scelta != 2) {
+                System.out.println("Inserisci 1 per un prestito di 10 anni 2 per un prestito di 20 anni");
+                System.out.flush();
+                scelta = Integer.parseInt(dati.nextLine());
+            }
+            if(scelta == 1) {
+                try{
+                    sistema.getCondizioni(contoCorrente, TipoPrestito.ANNI10, ammontare, stipendioCliente);
+                }catch (Exception e){
+                    System.err.println(e.getMessage());
+                    return;
+                }
+            }
+            else{
+                try{
+                    sistema.getCondizioni(contoCorrente, TipoPrestito.ANNI20, ammontare, stipendioCliente);
+                }catch (Exception e){
+                    System.err.println(e.getMessage());
+                    return;
+                }
+            }
+
+            int scelta2 = -1;
+            while(scelta2 != 0 && scelta2 != 1){
+                System.out.println("Per confermare il prestito digita: 1, per annullare o");
+                System.out.flush();
+                scelta2 = Integer.parseInt(dati.nextLine());
+
+            }
+            if(scelta2 == 1){
+                sistema.confermaOperazione(contoCorrente);
+                System.out.println("Prestito confermato");
+                System.out.flush();
+            }
+
+        }
+        else{
+            System.err.println("Errore: il numero di carta inserito non risulta associato a nessun conto");
+        }
+
 
 
         System.out.println("OPERAZIONE DI PRELIEVO");
@@ -33,7 +104,6 @@ public class Main {
         if(conto == null){//il numero di carta non esiste
             return;
         }
-        Scanner dati = new Scanner(System.in);
         for(int i = 0; i < 3; i++) {
             System.out.println("INSERIMENTO PIN E IMPORTO");
             System.out.println("Inserisci numero pin");
