@@ -5,12 +5,25 @@ import java.time.LocalDate;
 public class Prestito {
 
     private static int countId=1;
-    private int idPrestito,durataAnni,tassoInteresse;
+    private int idPrestito,durataAnni;
+    private final double tassoInteresse;
     private boolean sanato;
-    private double ammontare;
+    private final double ammontare;
     private LocalDate dataInizio,dataFine;
+    private Cliente cliente;
+    public Prestito(Cliente cliente,int durataAnni, double tassoInteresse,  double ammontare) {
+        idPrestito=countId;
+        countId++;
+        this.cliente = cliente;
+        this.durataAnni = durataAnni;
+        this.tassoInteresse = tassoInteresse;
+        this.sanato = false;
+        this.ammontare = ammontare;
+        this.dataInizio = LocalDate.now();
+        this.dataFine = LocalDate.now().plusYears(durataAnni);
+    }
 
-    public Prestito(int durataAnni, int tassoInteresse,  double ammontare,LocalDate dataFine) {
+    public Prestito(int durataAnni, double tassoInteresse,  double ammontare) {
         idPrestito=countId;
         countId++;
         this.durataAnni = durataAnni;
@@ -25,6 +38,14 @@ public class Prestito {
         return idPrestito;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public void setIdPrestito(int idPrestito) {
         this.idPrestito = idPrestito;
     }
@@ -37,13 +58,11 @@ public class Prestito {
         this.durataAnni = durataAnni;
     }
 
-    public int getTassoInteresse() {
+    public double getTassoInteresse() {
         return tassoInteresse;
     }
 
-    public void setTassoInteresse(int tassoInteresse) {
-        this.tassoInteresse = tassoInteresse;
-    }
+
 
     public boolean isSanato() {
         return sanato;
@@ -55,10 +74,6 @@ public class Prestito {
 
     public double getAmmontare() {
         return ammontare;
-    }
-
-    public void setAmmontare(double ammontare) {
-        this.ammontare = ammontare;
     }
 
     public LocalDate getDataInizio() {
