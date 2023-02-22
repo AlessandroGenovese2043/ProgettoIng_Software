@@ -27,6 +27,7 @@ class SistemaBancarioTest {
     void inserisciNuovoCliente() {
         sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
         assertNotNull(sistema.getClientecorrente());
+
     }
 
     @Test
@@ -34,6 +35,7 @@ class SistemaBancarioTest {
         sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
         sistema.inserisciConto(2,0);
         assertNotNull(sistema.getCorrente());
+
     }
 
     @Test
@@ -54,6 +56,7 @@ class SistemaBancarioTest {
         sistema.stampa();
         assertEquals(conto, sistema.verificaCarta(conto.getCartaAssociata().getNumeroCarta()));
         assertNull(sistema.verificaCarta("10098989")); //Questo numero di carta non può essere creato
+
     }
 
     @Test
@@ -65,16 +68,18 @@ class SistemaBancarioTest {
         sistema.effetuaPrelievo(conto.getCartaAssociata().getPinCarta(), 10, conto);
         //verifica se il saldo del conto è diminuito di 10
         assertEquals(saldoAttuale-10,conto.getSaldo());
+
     }
     @Test @DisplayName("Aggiunta Prelievo alla lista movimenti")
     void testListaMovimentiPrelievo() {
-        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
+       sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
         ContoCorrente conto =sistema.inserisciConto(2,45);
         sistema.confermaOperazione();
         double saldoAttuale = conto.getSaldo();
         sistema.effetuaPrelievo(conto.getCartaAssociata().getPinCarta(), 10, conto);
         assertEquals(1, conto.getLista_movimenti().size()); //elemento aggiunto
         assertEquals(conto.getLista_movimenti().get(0).getClass(), Prelievo.class); //Effettivamente un Prelievo
+
     }
     @Test
     void effetuaDeposito() {
@@ -85,6 +90,7 @@ class SistemaBancarioTest {
         sistema.effetuaDeposito(conto.getCartaAssociata().getPinCarta(), 10, conto);
         //verifica se il saldo del conto è diminuito di 10
         assertEquals(saldoAttuale+10- Deposito.getCommissione(),conto.getSaldo());
+
     }
     @Test @DisplayName("Aggiunta Deposito alla lista movimenti")
     void testListaMovimentiDeposito() {
@@ -95,5 +101,6 @@ class SistemaBancarioTest {
         sistema.effetuaDeposito(conto.getCartaAssociata().getPinCarta(), 10, conto);
         assertEquals(1, conto.getLista_movimenti().size()); //elemento aggiunto
         assertEquals(conto.getLista_movimenti().get(0).getClass(), Deposito.class); //Effettivamente un Deposito
+
     }
 }
