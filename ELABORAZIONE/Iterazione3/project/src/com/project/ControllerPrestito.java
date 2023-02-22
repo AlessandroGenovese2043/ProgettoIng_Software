@@ -49,7 +49,7 @@ public class ControllerPrestito {
             }
         }
     }
-    public void confermaOperazione(ContoCorrente conto, Cliente cliente){
+    public void confermaPrestito(ContoCorrente conto, Cliente cliente){
         if(conto != null && cliente != null){
            prestitoCorrente.setCliente(cliente);
            registroPrestito.add(prestitoCorrente);

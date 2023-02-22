@@ -2,10 +2,7 @@ package com.test;
 
 
 import com.project.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 
@@ -21,6 +18,10 @@ class SistemaBancarioTest {
     }
     @AfterEach
     void afterTest(){
+        sistema.getElenco().clear();
+    }
+    @BeforeEach
+    void beforeTest(){
         sistema.getElenco().clear();
     }
     @Test
