@@ -19,15 +19,20 @@ class SistemaBancarioTest {
     @AfterEach
     void afterTest(){
         sistema.getElenco().clear();
+        sistema.getElencoCliente().clear();
+        sistema.getElencoConto().clear();
     }
     @BeforeEach
     void beforeTest(){
         sistema.getElenco().clear();
+        sistema.getElencoCliente().clear();
+        sistema.getElencoConto().clear();
     }
     @Test
     void inserisciNuovoCliente() {
-        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
-        assertNotNull(sistema.getClientecorrente());
+
+            sistema.inserisciNuovoCliente("Alessandro", "Rossi", LocalDate.of(2023, 2, 9), "35464");
+            assertNotNull(sistema.getClientecorrente());
 
     }
 
