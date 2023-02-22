@@ -28,20 +28,29 @@ public class Main {
         sistema.stampa();
         sistema.loadConsulenti();
         //sistema.stampaConsulenti();
-        List<ConsulenteFinanziario> listaConsulenti = sistema.richiediConsulente(TipoSettore.AZIONI);
-        if(listaConsulenti.size() != 0){
+        Scanner dati = new Scanner(System.in);
+        List<Integer> lista_id = new ArrayList<>();
+        List<ConsulenteFinanziario> listaConsulenti;
+        try {
+            listaConsulenti = sistema.richiediConsulente(TipoSettore.AZIONI);
             for(ConsulenteFinanziario con : listaConsulenti){
                 System.out.println(con.toString());
+                lista_id.add(con.getIdConsulente());
             }
+            int id = -1;
+            while(id == -1 || !lista_id.contains(id)) {
+                System.out.println("Inserisci l'id del consulente scelto");
+                System.out.flush();
+                id = Integer.parseInt(dati.nextLine());
+            }
+            sistema.confermaConsulente(id,"35464998");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        else{
-            System.out.println("Purtroppo non c'è nessun consulente per il settore richiesto");
-        }
-        sistema.confermaConsulente(1,"35464998");
+
 
         System.out.println("OPERAZIONE DI CONCESSIONE PRESTITO");
         System.out.flush();
-        Scanner dati = new Scanner(System.in);
         ContoCorrente contoCorrente = OperazioneDiVerifica(sistema);
         if(contoCorrente != null){
             double ammontare = -1;
@@ -81,13 +90,17 @@ public class Main {
 
             int scelta2 = -1;
             while(scelta2 != 0 && scelta2 != 1){
-                System.out.println("Per confermare il prestito digita: 1, per annullare o");
+                System.out.println("Per confermare il prestito digita: 1, per annullare 0");
                 System.out.flush();
                 scelta2 = Integer.parseInt(dati.nextLine());
 
             }
             if(scelta2 == 1){
-                sistema.confermaPrestito(contoCorrente);
+                try {
+                    sistema.confermaPrestito(contoCorrente);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 System.out.println("Prestito confermato");
                 System.out.flush();
             }
