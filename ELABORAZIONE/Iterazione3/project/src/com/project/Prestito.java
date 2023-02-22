@@ -11,6 +11,7 @@ public class Prestito {
     private final double ammontare;
     private LocalDate dataInizio,dataFine;
     private Cliente cliente;
+    private ContoCorrente conto;
     public Prestito(Cliente cliente,int durataAnni, double tassoInteresse,  double ammontare) {
         idPrestito=countId;
         countId++;
@@ -44,6 +45,14 @@ public class Prestito {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public void setConto(ContoCorrente conto) {
+        this.conto = conto;
+    }
+
+    public ContoCorrente getConto() {
+        return conto;
     }
 
     public void setIdPrestito(int idPrestito) {

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class RegistroPrestito {
     private static  RegistroPrestito registroprestito;
-    private Map<Integer, Prestito> elencoPrestiti;
+    private final Map<Integer, Prestito> elencoPrestiti;
     public RegistroPrestito() {
         this.elencoPrestiti=new HashMap<>();
     }
@@ -24,5 +24,7 @@ public class RegistroPrestito {
         System.out.println("Il prestito è stato aggiunto all'elenco: " + elencoPrestiti);
     }
 
-
+    public Map<Integer, Prestito> getElencoPrestiti() {
+        return elencoPrestiti;
+    }
 }

@@ -8,12 +8,12 @@ import java.util.Map;
 
 public class SistemaBancario {
     private static SistemaBancario sistemabancario;
-    private ControllerPrestito controllerPrestito;
+    private final ControllerPrestito controllerPrestito;
     private ContoCorrente corrente;
     private Cliente clientecorrente = null;
-    private Map<ContoCorrente,Cliente>elenco;
-    private Map<String, Cliente> elencoClienti;
-    private Map<Integer, ConsulenteFinanziario> elencoConsulenti;
+    private final Map<ContoCorrente,Cliente>elenco;
+    private final Map<String, Cliente> elencoClienti;
+    private final Map<Integer, ConsulenteFinanziario> elencoConsulenti;
 
     public SistemaBancario() {
         this.elenco=new HashMap<>();
@@ -42,15 +42,18 @@ public class SistemaBancario {
         return elenco;
     }
 
-    public List<Cliente> getElencoCliente() {
-        List<Cliente> listCliente = new ArrayList<>();
-        listCliente.addAll(elenco.values());
-        return listCliente;
+    public Map<String, Cliente> getElencoClienti() {
+        return elencoClienti;
     }
+
     public List<ContoCorrente> getElencoConto() {
         List<ContoCorrente> listConto = new ArrayList<>();
         listConto.addAll(elenco.keySet());
         return listConto;
+    }
+
+    public Map<Integer, ConsulenteFinanziario> getElencoConsulenti() {
+        return elencoConsulenti;
     }
 
     @Override
@@ -96,34 +99,11 @@ public class SistemaBancario {
     }
     public ContoCorrente inserisciConto(int tipologia,double saldo)
     {
-        if(saldo < 0){
-            System.err.println("Errore: inserire saldo maggiore o uguale a zero");
-            return null;
-        }
         if( clientecorrente == null){
             System.err.println("Errore: prima di creare un conto inserire il nuovo cliente");
             return null;
         }
-        switch(tipologia)
-        {
-            case 1:
-                this .corrente= new ContoSilver(saldo);
-                break;
-
-            case 2:
-                this .corrente= new ContoGold(saldo);
-                break;
-
-            case 3:
-                this .corrente= new ContoPlatinum(saldo);
-                break;
-
-            default:
-                System.out.println("Indicare una delle 3 tipologie indicate");
-                return null;
-
-
-        }
+        this.corrente = ContoFactory.nuovoConto(tipologia, saldo);
         return corrente;
     }
 
@@ -201,22 +181,27 @@ public class SistemaBancario {
     public void getCondizioni(ContoCorrente conto, TipoPrestito tipoPrestito, double ammontare, double stipendioCliente) throws Exception {
         controllerPrestito.getCondizioni(conto, tipoPrestito, ammontare, stipendioCliente);
     }
-    public void confermaPrestito(ContoCorrente conto){
+    public void confermaPrestito(ContoCorrente conto) throws Exception {
         Cliente cliente = elenco.get(conto);
         controllerPrestito.confermaPrestito(conto,cliente);
     }
 
-    public List<ConsulenteFinanziario> richiediConsulente(TipoSettore tipoSettore){
+    public List<ConsulenteFinanziario> richiediConsulente(TipoSettore tipoSettore) throws Exception {
         List<ConsulenteFinanziario> listaConsulenti = new ArrayList<>();
         for(ConsulenteFinanziario consulente: elencoConsulenti.values()){
             if(consulente.getSettore() == tipoSettore){
                 listaConsulenti.add(consulente);
             }
         }
-        return listaConsulenti;
+        if(listaConsulenti.size() == 0){
+            throw new Exception("Purtroppo non c'è nessun consulente per il settore richiesto");
+        }
+        else {
+            return listaConsulenti;
+        }
     }
 
-    public void confermaConsulente(int idConsulente, String telefonoCliente){
+    public void confermaConsulente(int idConsulente, String telefonoCliente) throws Exception {
         Cliente cliente = verificaCliente(telefonoCliente);
         ConsulenteFinanziario con = elencoConsulenti.get(idConsulente);
         try{
@@ -226,12 +211,14 @@ public class SistemaBancario {
         }
     }
 
-    private Cliente verificaCliente(String telefonoCliente) {
+    private Cliente verificaCliente(String telefonoCliente) throws Exception {
         if(!telefonoCliente.matches("^[0-9]*$")){
-            System.err.println("Errore: inserire numero di telefono con caratteri numerici");
-            return null;
+            throw new Exception("Errore: inserire numero di telefono con caratteri numerici");
         }
         Cliente cliente = elencoClienti.get(telefonoCliente);
+        if(cliente == null){
+            throw new Exception("Non risulta non nessun cliente presenta con il numero di telefono fornito");
+        }
         return cliente;
     }
 
