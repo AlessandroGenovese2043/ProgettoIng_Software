@@ -87,7 +87,7 @@ public class Main {
 
             }
             if(scelta2 == 1){
-                sistema.confermaOperazione(contoCorrente);
+                sistema.confermaPrestito(contoCorrente);
                 System.out.println("Prestito confermato");
                 System.out.flush();
             }

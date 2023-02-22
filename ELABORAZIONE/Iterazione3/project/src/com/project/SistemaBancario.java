@@ -201,9 +201,9 @@ public class SistemaBancario {
     public void getCondizioni(ContoCorrente conto, TipoPrestito tipoPrestito, double ammontare, double stipendioCliente) throws Exception {
         controllerPrestito.getCondizioni(conto, tipoPrestito, ammontare, stipendioCliente);
     }
-    public void confermaOperazione(ContoCorrente conto){
+    public void confermaPrestito(ContoCorrente conto){
         Cliente cliente = elenco.get(conto);
-        controllerPrestito.confermaOperazione(conto,cliente);
+        controllerPrestito.confermaPrestito(conto,cliente);
     }
 
     public List<ConsulenteFinanziario> richiediConsulente(TipoSettore tipoSettore){
