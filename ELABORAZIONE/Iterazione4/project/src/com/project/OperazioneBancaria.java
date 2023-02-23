@@ -48,7 +48,7 @@ public abstract class OperazioneBancaria {
     @Override
     public String toString() {
         return "OperazioneBancaria{" +
-                ", dateTime='" + dateTime + '\'' +
+                " dateTime='" + dateTime + '\'' +
                 ", importo=" + importo +
                 ", idOp=" + idOp +
                 '}';

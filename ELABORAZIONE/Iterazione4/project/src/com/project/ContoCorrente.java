@@ -126,7 +126,7 @@ public abstract class ContoCorrente {
         for(OperazioneBancaria op : lista_movimenti) {
             if (op.getClass() == Prelievo.class && op.getData().isEqual(LocalDate.now())) {
                 totale = totale + op.getImporto();
-                System.out.println("" + op + totale);
+                //System.out.println("" + op + totale);
             }
         }
 
