@@ -1,5 +1,8 @@
 package com.project;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ControllerPrestito {
     private static ControllerPrestito controllerPrestito;
     private final RegistroPrestito registroPrestito;
@@ -67,6 +70,18 @@ public class ControllerPrestito {
         }
         else{
             throw new Exception("Impossibile completare l'operazione di conferma del Prestiti");
+        }
+    }
+
+    public void stampaPrestiti() throws Exception {
+        List<Prestito> lista_prestiti = registroPrestito.getListaPrestiti();
+        if(lista_prestiti.size() == 0){
+            throw new Exception("La banca non ha ancora concesso nessun prestito");
+        }
+        else{
+            for(Prestito p: lista_prestiti){
+                System.out.println(p.toString());
+            }
         }
     }
 }
