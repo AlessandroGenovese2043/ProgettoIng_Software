@@ -2,6 +2,7 @@ package com.test;
 
 import com.project.*;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -13,6 +14,12 @@ class ControllerPrestitoTest {
     static ContoCorrente conto;
     static Cliente cliente;
     static RegistroPrestito registroPrestito;
+
+    @BeforeEach
+        void beforeTest() {
+            registroPrestito.getElencoPrestiti().clear();
+        }
+
     @BeforeAll
     static void initTest() {
         controllerPrestito = ControllerPrestito.getInstance();
@@ -70,5 +77,29 @@ class ControllerPrestitoTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Test
+    void stampaPrestiti() {
+        //Inizialmente lista prestiti vuoti
+        try {
+            controllerPrestito.stampaPrestiti();
+            fail("Unexpected exception"); // se dovesse trovare un prestito
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+
+        try {
+            controllerPrestito.getCondizioni(conto, TipoPrestito.ANNI10, 50000, 20000);
+            controllerPrestito.confermaPrestito(conto, cliente);
+
+            controllerPrestito.stampaPrestiti();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            fail("Unexpected exception");
+        }
+
     }
 }

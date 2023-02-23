@@ -139,4 +139,82 @@ class SistemaBancarioTest {
         }
 
     }
+
+    @Test @DisplayName("Test per lista movimenti quando si inserisce un numero di carta non valido")
+    void stampaListaMovimenti1() {
+        try {
+            //Il numero di carta non esiste quindi ci aspettiamo che vada in catch
+            sistema.stampaListaMovimenti("353636");
+            fail("Unexcpeted Error");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+
+        }
+    }
+
+    @Test
+    void stampaListaMovimenti2() {
+
+        sistema.inserisciNuovoCliente("Alessandro","Rossi", LocalDate.of(2023,2,9),"35464");
+        ContoCorrente conto =sistema.inserisciConto(2,45);
+        sistema.confermaOperazione();
+        try {
+            conto.stampaListaMovimenti();
+
+            fail("Unexceoted error");
+        } catch (Exception e) {
+            System.err.println("Errore");
+
+        }
+
+        sistema.effetuaDeposito(conto.getCartaAssociata().getPinCarta(), 10, conto);
+        try {
+            conto.stampaListaMovimenti();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            fail("Unexceoted error");
+
+        }
+    }
+
+    @Test
+    void  modificaTassoInteresse() {
+        try {
+            sistema.modificaTassoInteresse(4,-1);
+            fail("Unexcpected error");
+        } catch (Exception e) {
+            System.err.println("Errore");
+        }
+
+        try {
+           assertTrue(sistema.modificaTassoInteresse(2,1));
+            assertEquals(2,ContoSilver.getTassoInteresse());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            fail("Unexcpected error");
+
+        }
+
+    }
+
+    @Test
+    void  modificaMaxPrelevabile() {
+        try {
+            sistema.modificaMaxPrelevabile(4,-1);
+            fail("Unexcpected error");
+        } catch (Exception e) {
+            System.err.println("Errore");
+        }
+
+        try {
+            assertTrue(sistema.modificaMaxPrelevabile(2000,1));
+            assertEquals(2000,ContoSilver.getMaxPrelevabile());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            fail("Unexcpected error");
+
+        }
+
+    }
+
 }
