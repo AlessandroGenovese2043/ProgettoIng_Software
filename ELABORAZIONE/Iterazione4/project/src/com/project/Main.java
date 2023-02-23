@@ -1,6 +1,7 @@
 package com.project;
 
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,46 @@ public class Main {
         sistema.stampa();
         sistema.loadConsulenti();
         //sistema.stampaConsulenti();
+
+
+
         Scanner dati = new Scanner(System.in);
+        int tipoConto = -1;
+        while(tipoConto == -1 || ( tipoConto > 3  || tipoConto < 1)) {
+            System.out.println("Inserisci il tipoConto da modificare \n1 per conto Silver, 2 per conto Gold, 3 per conto Platinum");
+            System.out.flush();
+            tipoConto = Integer.parseInt(dati.nextLine());
+        }
+        double nuovoTasso = -1;
+        while(nuovoTasso <= 0) {
+            System.out.println("Inserisci il nuovo tasso di interesse: ");
+            System.out.flush();
+            nuovoTasso = Double.parseDouble(dati.nextLine());
+        }
+        try {
+            sistema.modificaTassoInteresse(nuovoTasso, tipoConto);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        tipoConto = -1;
+        while(tipoConto == -1 || ( tipoConto > 3  || tipoConto < 1)) {
+            System.out.println("Inserisci il tipoConto da modificare \n1 per conto Silver, 2 per conto Gold, 3 per conto Platinum");
+            System.out.flush();
+            tipoConto = Integer.parseInt(dati.nextLine());
+        }
+        double nuovoMax = -1;
+        while(nuovoMax <= 0) {
+            System.out.println("Inserisci il nuovo massimo prelevabile: ");
+            System.out.flush();
+            nuovoMax = Double.parseDouble(dati.nextLine());
+        }
+        try {
+            sistema.modificaMaxPrelevabile(nuovoMax, tipoConto);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+
         List<Integer> lista_id = new ArrayList<>();
         List<ConsulenteFinanziario> listaConsulenti;
         try {
@@ -47,8 +87,14 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("OPERAZIONE DI STAMPA PRESTITI");
+        try {
+            sistema.stampaPrestiti();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
 
-    for(int i = 0; i<2; i++) {
+        for(int i = 0; i<2; i++) {
         System.out.println("OPERAZIONE DI CONCESSIONE PRESTITO");
         System.out.flush();
         ContoCorrente contoCorrente = OperazioneDiVerifica(sistema);
@@ -109,13 +155,13 @@ public class Main {
         }
 
     }
-
+/*
         System.out.println("OPERAZIONE DI PRELIEVO");
         ContoCorrente conto = OperazioneDiVerifica(sistema);
         if(conto == null){//il numero di carta non esiste
             return;
         }
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 2; i++) {
             System.out.println("INSERIMENTO PIN E IMPORTO");
             System.out.println("Inserisci numero pin");
             int pin = Integer.parseInt(dati.nextLine());
@@ -156,8 +202,8 @@ public class Main {
         }
         sistema.effetuaDeposito(pinDeposito, importoDeposito, conto);
 
-        Deposito.setCommissione(1);
-
+        Deposito.setCommissione(1);*/
+/*
         System.out.println("OPERAZIONE DI DEPOSITO");
         conto = OperazioneDiVerifica(sistema);
         if(conto == null){
@@ -177,11 +223,28 @@ public class Main {
             }
         }
         sistema.effetuaDeposito(pinDeposito2, importoDeposito2, conto);
+*//*
+        try {
+            conto.stampaListaMovimenti();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());;
+        }
 
-        conto.stampaListaMovimenti();
-
-
-
+        System.out.println("OPERAZIONE DI STAMPA LISTA MOVIMENTI");
+        System.out.println("Inserisci numero carta");
+        Scanner input = new Scanner(System.in);
+        String numeroCartaInserito = input.nextLine();
+        try {
+            sistema.stampaListaMovimenti(numeroCartaInserito);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }*/
+        System.out.println("OPERAZIONE DI STAMPA PRESTITI");
+        try {
+            sistema.stampaPrestiti();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
     public static ContoCorrente OperazioneDiVerifica(SistemaBancario sistema){
         System.out.println("Inserisci numero carta");

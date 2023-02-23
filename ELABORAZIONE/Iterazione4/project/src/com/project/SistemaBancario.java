@@ -221,6 +221,64 @@ public class SistemaBancario {
         }
         return cliente;
     }
+    public void stampaListaMovimenti(String numeroCarta) throws Exception {
+        ContoCorrente conto = verificaCarta(numeroCarta);
+        if(conto != null) {
+            conto.stampaListaMovimenti();
+        }else{
+            throw new Exception("Nessun conto è stato trovato associato alla carta");
+        }
+    }
 
+    public boolean modificaTassoInteresse(double nuovoTasso, int tipoConto) throws Exception {
+        switch(tipoConto)
+        {
+            case 1:
+                System.out.println("Modifica per CONTO SILVER...");
+                ContoSilver.setTassoInt(nuovoTasso);
+                return true;
+
+            case 2:
+                System.out.println("Modifica per CONTO GOLD...");
+                ContoGold.setTassoInt(nuovoTasso);
+                return true;
+            case 3:
+                System.out.println("Modifica per CONTO PLATINUM...");
+                ContoPlatinum.setTassoInt(nuovoTasso);
+                return true;
+            default:
+                throw  new Exception("Indicare una delle 3 tipologie indicate");
+
+
+
+        }
+    }
+    public boolean modificaMaxPrelevabile(double nuovoMax, int tipoConto) throws Exception {
+        switch(tipoConto)
+        {
+            case 1:
+                System.out.println("Modifica per CONTO SILVER...");
+                ContoSilver.setTassoInt(nuovoMax);
+                return true;
+
+            case 2:
+                System.out.println("Modifica per CONTO GOLD...");
+                ContoGold.setTassoInt(nuovoMax);
+                return true;
+            case 3:
+                System.out.println("Modifica per CONTO PLATINUM...");
+                ContoPlatinum.setTassoInt(nuovoMax);
+                return true;
+            default:
+                throw  new Exception("Indicare una delle 3 tipologie indicate");
+
+
+
+        }
+    }
+
+    public void stampaPrestiti() throws Exception {
+        controllerPrestito.stampaPrestiti();
+    }
 
 }

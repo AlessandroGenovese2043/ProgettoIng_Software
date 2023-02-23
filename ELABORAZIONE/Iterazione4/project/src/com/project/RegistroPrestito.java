@@ -1,7 +1,6 @@
 package com.project;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class RegistroPrestito {
     private static  RegistroPrestito registroprestito;
@@ -34,5 +33,11 @@ public class RegistroPrestito {
             }
         }
         return null;
+    }
+
+    public List<Prestito> getListaPrestiti(){
+            List<Prestito> lista_prestiti = new ArrayList<>();
+            lista_prestiti.addAll(elencoPrestiti.values());
+            return lista_prestiti;
     }
 }

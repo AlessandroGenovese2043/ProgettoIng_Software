@@ -100,7 +100,10 @@ public abstract class ContoCorrente {
         return lista_movimenti;
     }
 
-    public void stampaListaMovimenti(){
+    public void stampaListaMovimenti() throws Exception {
+        if(lista_movimenti.size() == 0){
+            throw new Exception("Nessun movimento presente nella lista");
+        }
         for (OperazioneBancaria op:lista_movimenti)
         {
             if(op.getClass() == Prelievo.class){

@@ -1,7 +1,7 @@
 package com.project;
 public class ContoSilver extends ContoCorrente{
     private int costoannuo=20;
-    private double tassoInt = 5;
+    private static double tassoInt = 5;
     private static double maxPrelevabile = 350;
     public ContoSilver(double saldo) {
         super(saldo);
@@ -37,5 +37,13 @@ public class ContoSilver extends ContoCorrente{
 
     public static void setMaxPrelevabile(double maxPrelevabile) {
         ContoSilver.maxPrelevabile = maxPrelevabile;
+    }
+
+    public static void setTassoInt(double tassoInt) {
+        ContoSilver.tassoInt = tassoInt;
+    }
+
+    public static double getMaxPrelevabile() {
+        return maxPrelevabile;
     }
 }
