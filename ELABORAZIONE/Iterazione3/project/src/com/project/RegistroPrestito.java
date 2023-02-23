@@ -27,4 +27,12 @@ public class RegistroPrestito {
     public Map<Integer, Prestito> getElencoPrestiti() {
         return elencoPrestiti;
     }
+    public Prestito getPrestito(String telefonoCliente){
+        for(Prestito p:elencoPrestiti.values()){
+            if(p.getCliente().getTelefono().compareTo(telefonoCliente) == 0 && !p.isSanato()){
+                return p; // Se esiste restituisce un prestito attivo del cliente non ancora sanato
+            }
+        }
+        return null;
+    }
 }

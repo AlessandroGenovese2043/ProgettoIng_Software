@@ -58,6 +58,10 @@ public class ControllerPrestito {
         if(conto != null && cliente != null){
            prestitoCorrente.setCliente(cliente);
            prestitoCorrente.setConto(conto);
+           Prestito p = registroPrestito.getPrestito(cliente.getTelefono());
+           if(p != null){
+                throw new Exception("Impossibile concedere un nuovo prestito perchè risulta che il cliente abbia già un prestito attivo");
+           }
            registroPrestito.add(prestitoCorrente);
            conto.setSaldo(prestitoCorrente.getAmmontare()+conto.getSaldo()); //aggiornamento del saldo dopo il prestito confermato
         }

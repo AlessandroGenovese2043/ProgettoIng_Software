@@ -63,5 +63,12 @@ class ControllerPrestitoTest {
             System.out.println(e.getMessage());
             fail("Unexpected exception");
         }
+        try {
+            controllerPrestito.getCondizioni(conto, TipoPrestito.ANNI10, 50000, 20000);
+            controllerPrestito.confermaPrestito(conto, cliente);
+            fail("Unexpected exception");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
