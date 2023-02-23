@@ -204,10 +204,15 @@ public class SistemaBancario {
     public void confermaConsulente(int idConsulente, String telefonoCliente) throws Exception {
         Cliente cliente = verificaCliente(telefonoCliente);
         ConsulenteFinanziario con = elencoConsulenti.get(idConsulente);
-        try{
-            con.aggiungiCliente(cliente);
-        }catch (Exception e){
-            System.err.println("Impossibile aggiungere il cliente");
+        if(!con.getListaClienti().contains(cliente)) {
+            try {
+                con.aggiungiCliente(cliente);
+            } catch (Exception e) {
+                System.err.println("Impossibile aggiungere il cliente");
+            }
+        }else
+        {
+            System.err.println("Il cliente ha già scelto questo consulente");
         }
     }
 
