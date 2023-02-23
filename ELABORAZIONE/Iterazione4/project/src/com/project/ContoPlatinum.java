@@ -48,4 +48,7 @@ public class ContoPlatinum extends ContoCorrente{
     public static double getMaxPrelevabile() {
         return maxPrelevabile;
     }
+    public static double getTassoInteresse() {
+        return tassoInt;
+    }
 }

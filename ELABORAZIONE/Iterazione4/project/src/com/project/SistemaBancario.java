@@ -258,16 +258,16 @@ public class SistemaBancario {
         {
             case 1:
                 System.out.println("Modifica per CONTO SILVER...");
-                ContoSilver.setTassoInt(nuovoMax);
+                ContoSilver.setMaxPrelevabile(nuovoMax);
                 return true;
 
             case 2:
                 System.out.println("Modifica per CONTO GOLD...");
-                ContoGold.setTassoInt(nuovoMax);
+                ContoGold.setMaxPrelevabile(nuovoMax);
                 return true;
             case 3:
                 System.out.println("Modifica per CONTO PLATINUM...");
-                ContoPlatinum.setTassoInt(nuovoMax);
+                ContoPlatinum.setMaxPrelevabile(nuovoMax);
                 return true;
             default:
                 throw  new Exception("Indicare una delle 3 tipologie indicate");

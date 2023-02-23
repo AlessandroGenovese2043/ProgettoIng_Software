@@ -42,6 +42,9 @@ public class ContoGold extends ContoCorrente{
     public static void setMaxPrelevabile(double maxPrelevabile) {
         ContoGold.maxPrelevabile = maxPrelevabile;
     }
+    public static double getTassoInteresse() {
+        return tassoInt;
+    }
 
 
 

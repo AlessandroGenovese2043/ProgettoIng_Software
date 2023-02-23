@@ -1,9 +1,6 @@
 package com.test;
 
-import com.project.ContoCorrente;
-import com.project.ContoGold;
-import com.project.ContoSilver;
-import com.project.Deposito;
+import com.project.*;
 import org.junit.jupiter.api.Test;
 
 
@@ -29,4 +26,6 @@ class ContoCorrenteTest {
         conto.aggiornaSaldo(5, "prelievo");
         assertEquals(c-5, conto.getSaldo());
     }
+
+
 }
