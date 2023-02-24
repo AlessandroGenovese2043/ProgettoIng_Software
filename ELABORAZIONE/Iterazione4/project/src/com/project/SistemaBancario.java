@@ -168,6 +168,10 @@ public class SistemaBancario {
         this.elencoConsulenti.put(g.getIdConsulente(),g);
         ConsulenteFinanziario h= new ConsulenteFinanziario("matteo@gmail.com","Matteo","Jackson",7,TipoSettore.AZIONITECH);
         this.elencoConsulenti.put(h.getIdConsulente(),h);
+        ConsulenteFinanziario i= new ConsulenteFinanziario("sergio@gmail.com","Sergio","Betton",3,TipoSettore.VALUTE);
+        this.elencoConsulenti.put(h.getIdConsulente(),i);
+        ConsulenteFinanziario j= new ConsulenteFinanziario("emilio@gmail.com","Emilio","Flyon",4,TipoSettore.AZIONI);
+        this.elencoConsulenti.put(h.getIdConsulente(),j);
     }
 
     public void stampaConsulenti(){
