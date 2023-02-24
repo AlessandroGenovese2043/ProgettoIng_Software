@@ -1,7 +1,7 @@
 package com.project;
 
 
-import java.sql.SQLOutput;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -260,26 +260,26 @@ public class Main {
         if(conto == null){//il numero di carta non esiste
             return;
         }
-        for(int i = 0; i < 2; i++) {
-            System.out.println("INSERIMENTO PIN E IMPORTO");
-            System.out.println("Inserisci numero pin");
-            int pin = Integer.parseInt(dati.nextLine());
-            System.out.flush();
-            int a = -1;
-            int importo = 0;
-            while (a < 0) {
-                System.out.println("Inserisci importo");
-                importo = Integer.parseInt(dati.nextLine());
-                System.out.flush();
-                if (importo > 0) {
-                    a = 1;
-                } else {
-                    System.err.println("Errore: inserire un numero maggiore di zero");
-                }
-            }
-            sistema.effetuaPrelievo(pin, importo, conto);
 
+        System.out.println("INSERIMENTO PIN E IMPORTO");
+        System.out.println("Inserisci numero pin");
+        int pin = Integer.parseInt(dati.nextLine());
+        System.out.flush();
+        int a = -1;
+        int importo = 0;
+        while (a < 0) {
+            System.out.println("Inserisci importo");
+            importo = Integer.parseInt(dati.nextLine());
+            System.out.flush();
+            if (importo > 0) {
+                a = 1;
+            } else {
+                System.err.println("Errore: inserire un numero maggiore di zero");
+            }
         }
+        sistema.effetuaPrelievo(pin, importo, conto);
+
+
     }
 
     public static void deposito(SistemaBancario sistema)
@@ -308,67 +308,67 @@ public class Main {
     public static void prestito(SistemaBancario sistema)
     {
 
-        for(int i = 0; i<2; i++) {
-            System.out.println("OPERAZIONE DI CONCESSIONE PRESTITO");
-            System.out.flush();
-            ContoCorrente contoCorrente = OperazioneDiVerifica(sistema);
-            if (contoCorrente != null) {
-                double ammontare = -1;
-                while (ammontare < 0) {
-                    System.out.println("Inserisci l'ammontare del prestito");
-                    System.out.flush();
-                    ammontare = Integer.parseInt(dati.nextLine());
-                }
-                double stipendioCliente = -1;
-                while (stipendioCliente <= 0) {
-                    System.out.println("Inserisci lo stipendio annuale del Cliente");
-                    System.out.flush();
-                    stipendioCliente = Integer.parseInt(dati.nextLine());
-                }
-                int scelta = 0;
-                while (scelta != 1 && scelta != 2) {
-                    System.out.println("Inserisci 1 per un prestito di 10 anni 2 per un prestito di 20 anni");
-                    System.out.flush();
-                    scelta = Integer.parseInt(dati.nextLine());
-                }
-                if (scelta == 1) {
-                    try {
-                        sistema.getCondizioni(contoCorrente, TipoPrestito.ANNI10, ammontare, stipendioCliente);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                        return;
-                    }
-                } else {
-                    try {
-                        sistema.getCondizioni(contoCorrente, TipoPrestito.ANNI20, ammontare, stipendioCliente);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                        return;
-                    }
-                }
 
-                int scelta2 = -1;
-                while (scelta2 != 0 && scelta2 != 1) {
-                    System.out.println("Per confermare il prestito digita: 1, per annullare 0");
-                    System.out.flush();
-                    scelta2 = Integer.parseInt(dati.nextLine());
-
+        System.out.println("OPERAZIONE DI CONCESSIONE PRESTITO");
+        System.out.flush();
+        ContoCorrente contoCorrente = OperazioneDiVerifica(sistema);
+        if (contoCorrente != null) {
+            double ammontare = -1;
+            while (ammontare < 0) {
+                System.out.println("Inserisci l'ammontare del prestito");
+                System.out.flush();
+                ammontare = Integer.parseInt(dati.nextLine());
+            }
+            double stipendioCliente = -1;
+            while (stipendioCliente <= 0) {
+                System.out.println("Inserisci lo stipendio annuale del Cliente");
+                System.out.flush();
+                stipendioCliente = Integer.parseInt(dati.nextLine());
+            }
+            int scelta = 0;
+            while (scelta != 1 && scelta != 2) {
+                System.out.println("Inserisci 1 per un prestito di 10 anni 2 per un prestito di 20 anni");
+                System.out.flush();
+                scelta = Integer.parseInt(dati.nextLine());
+            }
+            if (scelta == 1) {
+                try {
+                    sistema.getCondizioni(contoCorrente, TipoPrestito.ANNI10, ammontare, stipendioCliente);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    return;
                 }
-                if (scelta2 == 1) {
-                    try {
-                        sistema.confermaPrestito(contoCorrente);
-                        System.out.println("Prestito confermato");
-                        System.out.flush();
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                    }
-                }
-
             } else {
-                System.err.println("Errore: il numero di carta inserito non risulta associato a nessun conto");
+                try {
+                    sistema.getCondizioni(contoCorrente, TipoPrestito.ANNI20, ammontare, stipendioCliente);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    return;
+                }
             }
 
+            int scelta2 = -1;
+            while (scelta2 != 0 && scelta2 != 1) {
+                System.out.println("Per confermare il prestito digita: 1, per annullare 0");
+                System.out.flush();
+                scelta2 = Integer.parseInt(dati.nextLine());
+
+            }
+            if (scelta2 == 1) {
+                try {
+                    sistema.confermaPrestito(contoCorrente);
+                    System.out.println("Prestito confermato");
+                    System.out.flush();
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+
+        } else {
+            System.err.println("Errore: il numero di carta inserito non risulta associato a nessun conto");
         }
+
+
     }
 
     public static void visualizzaEstrattoConto(SistemaBancario sistema)
