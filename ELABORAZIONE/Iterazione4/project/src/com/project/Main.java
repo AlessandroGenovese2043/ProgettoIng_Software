@@ -94,15 +94,6 @@ public class Main {
         }while(s!=3);
         System.out.println("Arrivederci");
 
-/*
-        try {
-            conto.stampaListaMovimenti();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());;
-        }
-
-        */
-
     }
 
 
@@ -226,18 +217,37 @@ public class Main {
         List<Integer> lista_id = new ArrayList<>();
         List<ConsulenteFinanziario> listaConsulenti;
         try {
-            listaConsulenti = sistema.richiediConsulente(TipoSettore.AZIONI);
-            for(ConsulenteFinanziario con : listaConsulenti){
-                System.out.println(con.toString());
-                lista_id.add(con.getIdConsulente());
+            System.out.println(" Scegli settore(IN MAIUSCOLO:   AZIONI ,  ETF, CRIPTOVALUTE, AZIONITECH, NTF, MATERIEPRIME, VALUTE");
+            System.out.flush();
+            TipoSettore a;
+            try{
+                 a= TipoSettore.valueOf(dati.nextLine());
+            }catch(IllegalArgumentException e)
+            {
+                System.err.println("Argomento non valido--ECCEZIONE: "+e.getMessage());
+                return;
             }
-            int id = -1;
-            while(id == -1 || !lista_id.contains(id)) {
-                System.out.println("Inserisci l'id del consulente scelto");
+
+
+                listaConsulenti = sistema.richiediConsulente(a);
+                for (ConsulenteFinanziario con : listaConsulenti) {
+                    System.out.println(con.toString());
+                    lista_id.add(con.getIdConsulente());
+                }
+                int id = -1;
+                while (id == -1 || !lista_id.contains(id)) {
+                    System.out.println("Inserisci l'id del consulente scelto");
+                    System.out.flush();
+                    id = Integer.parseInt(dati.nextLine());
+                }
+                String telefono;
+                System.out.println("Inserisci il numero di telefono del cliente");
                 System.out.flush();
-                id = Integer.parseInt(dati.nextLine());
-            }
-            sistema.confermaConsulente(id,"35464998");
+                telefono = dati.nextLine();
+
+                sistema.confermaConsulente(id, telefono);
+
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

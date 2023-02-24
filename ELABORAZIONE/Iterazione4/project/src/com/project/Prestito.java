@@ -111,6 +111,7 @@ public class Prestito {
                 ", ammontare=" + ammontare +
                 ", dataInizio=" + dataInizio +
                 ", dataFine=" + dataFine +
+                ", Cliente=" + cliente +
                 '}';
     }
 }
