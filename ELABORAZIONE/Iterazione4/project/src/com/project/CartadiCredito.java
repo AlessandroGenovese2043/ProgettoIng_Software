@@ -14,6 +14,8 @@ public class CartadiCredito {
         generaPin();
     }
 
+    // metodo che serve a generare in maniera univoca il numero di carta incrementando e decrementando
+    // le variabili firstnumber e lastnumber
     private void generaNumeroCarta(){
         String firstString = ("" + firstnumber);
         String lastString = ("" + lastnumber);
@@ -21,6 +23,8 @@ public class CartadiCredito {
         lastnumber--;
         numeroCarta = firstString.concat(lastString);
     }
+
+    //Metodo per generare in maniera random un pin da 4 cifre
     private void generaPin(){
         double random = (Math.random()*9000) + 1000; //pin di 4 numeri da 1000 a 9999
         pinCarta = (int) random;

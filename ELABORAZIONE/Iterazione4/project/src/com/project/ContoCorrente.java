@@ -17,12 +17,14 @@ public abstract class ContoCorrente {
         this.lista_movimenti  = new ArrayList<>();
     }
 
+    //metodo per generare in maniera univoca dei codici iban
     private void associaIBAN() {
         String number = ("" + numberIban);
         numberIban++;
         IBAN = firstLetter.concat(number);
     }
 
+    //Metodo per associare al conto corrente una carta di credito
     private void associaCartaCredito(){
         LocalDate today = LocalDate.now();
         today = today.plusYears(5);
@@ -39,6 +41,9 @@ public abstract class ContoCorrente {
     public CartadiCredito getCartaAssociata() {
         return cartaAssociata;
     }
+
+    //Metodo che verifica se il numero di carta passato come parametro
+    // è uguale a quello della carta associata al conto corrente
     public double findNumeroCarta(String numeroCartaInserita) {
         String numeroCarta = cartaAssociata.getNumeroCarta();
 
@@ -61,6 +66,10 @@ public abstract class ContoCorrente {
                 '}';
     }
 
+    //Metodo che verifica che il pin digitato corrisponda con quello associato alla carta e quindi al conto corrente
+    // e verifica che le operazioni di prelievo o deposito possano essere effettuate con successo
+    // Aggiunge l'operazione alla lista movimenti per quel conto specifico
+    // Restituisce il saldo attuale
     public double verificaPin(int pinCartaInserito, double importo, String operazione){
         if(pinCartaInserito == cartaAssociata.getPinCarta()){
             //il pin è corretto
@@ -86,6 +95,8 @@ public abstract class ContoCorrente {
         return -1;
     }
 
+    //Metodo di aggiornamento saldo
+    //Se deposito viene sottratta la commissione
     public void aggiornaSaldo(double importo, String operazione){
         if(operazione.compareTo("deposito") == 0){
             saldo = saldo + importo - Deposito.getCommissione();
@@ -118,6 +129,8 @@ public abstract class ContoCorrente {
     public abstract double massimoPrelevabile();
     public abstract double getTassoInt();
 
+
+    //Metodo che serve a verificare che non si sia raggiunto il max prelevabile giornaliero
     public double verificaMovimento(){ //Controllo dei prelievi giornalieri
         double totale = 0;
         if(lista_movimenti.size() == 0){
