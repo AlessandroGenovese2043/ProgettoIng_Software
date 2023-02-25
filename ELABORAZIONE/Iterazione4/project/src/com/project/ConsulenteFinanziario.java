@@ -98,6 +98,7 @@ public class ConsulenteFinanziario {
                 '}';
     }
 
+    //Metodo per aggiungere un cliente alla lista dei clienti di un consulente
     public void aggiungiCliente(Cliente cliente) throws Exception {
         if(cliente != null) {
             listaClienti.add(cliente);

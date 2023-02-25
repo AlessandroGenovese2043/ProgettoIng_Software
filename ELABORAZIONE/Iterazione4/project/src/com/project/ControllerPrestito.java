@@ -30,7 +30,7 @@ public class ControllerPrestito {
 
 
     }
-
+    //Metodo che fornisce le condizioni riguardanti il prestito
     private void calcolaCondizioni(TipoPrestito tipoPrestito, double ammontare, double stipendio, double tassoInt) throws Exception {
         if(tipoPrestito == TipoPrestito.ANNI10){
             if(ammontare <= 3*stipendio){
@@ -57,6 +57,9 @@ public class ControllerPrestito {
             }
         }
     }
+
+    //Metodo per confermare il prestito e associarlo al cliente e al conto di riferimento
+    // Inoltre viene aggiunto nel registro dei prestiti
     public void confermaPrestito(ContoCorrente conto, Cliente cliente) throws Exception {
         if(conto != null && cliente != null){
            prestitoCorrente.setCliente(cliente);

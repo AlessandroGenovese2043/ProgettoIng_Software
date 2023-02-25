@@ -1,5 +1,6 @@
 package com.project;
 
+//Usiamo questa classe a seguito dell'utilizzo del pattern factory method
 public class ContoFactory {
     public static ContoCorrente nuovoConto(int tipologia,double saldo){
         if(saldo < 0){

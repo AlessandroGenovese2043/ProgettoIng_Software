@@ -56,6 +56,8 @@ public class Cliente {
                 '}';
     }
 
+
+    //Metodo per settare la carta di credito al cliente
     public void setCartadiCredito(CartadiCredito carta) {
         this.cartadiCredito = carta;
     }

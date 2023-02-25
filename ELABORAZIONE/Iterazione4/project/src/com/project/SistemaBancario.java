@@ -63,6 +63,7 @@ public class SistemaBancario {
                 " } ";
     }
 
+    //Metodo che stampa il conto corrente e il cliente
     public void stampa()
     {
         for (ContoCorrente conto:elenco.keySet())
@@ -74,6 +75,7 @@ public class SistemaBancario {
 
     }
 
+    //Metodo per aggiungere un nuovo cliente, controllando che non possieda già un altro conto
     public Cliente inserisciNuovoCliente(String nome, String cognome,LocalDate datanascita,String telefono)
     {
         if(!telefono.matches("^[0-9]*$")){
@@ -97,6 +99,8 @@ public class SistemaBancario {
         this.clientecorrente= new Cliente(nome,cognome,datanascita,telefono);
         return clientecorrente;
     }
+
+    //Metodo per la creazione di un nuovo conto
     public ContoCorrente inserisciConto(int tipologia,double saldo)
     {
         if( clientecorrente == null){
@@ -107,6 +111,8 @@ public class SistemaBancario {
         return corrente;
     }
 
+
+    //Metodo per confermare l'inserimento di un conto corrente(con relativo cliente) nel sistema
     public void confermaOperazione()
     {
         if(clientecorrente!= null && corrente!=null)
@@ -121,6 +127,7 @@ public class SistemaBancario {
 
     }
 
+    //Metodo per verificare la presenza di quel numero di carta nel sistema
     public ContoCorrente verificaCarta(String numeroCartaInserito){
         List<ContoCorrente> conti= getElencoConto();
         double saldo;
@@ -133,6 +140,8 @@ public class SistemaBancario {
         return null;
 
     }
+
+    //Metodo per effettuare il prelievo
     public void effetuaPrelievo(int pinCartaInserito, double importo, ContoCorrente conto) {
         double saldo = conto.verificaPin(pinCartaInserito, importo, "prelievo");
         if(saldo != -1){
@@ -142,6 +151,7 @@ public class SistemaBancario {
 
     }
 
+    //Metodo per effettuare il deposito
     public void effetuaDeposito(int pinDeposito, int importoDeposito, ContoCorrente conto) {
         double saldo = conto.verificaPin(pinDeposito, importoDeposito, "deposito");
         if(saldo != -1){
@@ -150,6 +160,7 @@ public class SistemaBancario {
         }
     }
 
+    //Metodo per caricare un gruppo di consulenti
     public void loadConsulenti()
     {
         ConsulenteFinanziario a= new ConsulenteFinanziario("marco@gmail.com","Marco","Rossi",5,TipoSettore.AZIONITECH);
@@ -185,11 +196,15 @@ public class SistemaBancario {
     public void getCondizioni(ContoCorrente conto, TipoPrestito tipoPrestito, double ammontare, double stipendioCliente) throws Exception {
         controllerPrestito.getCondizioni(conto, tipoPrestito, ammontare, stipendioCliente);
     }
+
+    //Metodo per confermare l'operazione di prestito
     public void confermaPrestito(ContoCorrente conto) throws Exception {
         Cliente cliente = elenco.get(conto);
         controllerPrestito.confermaPrestito(conto,cliente);
     }
 
+    //Metodo per far visualizzare le informazioni dei consulenti indicando il tipo di settore
+    //Non è necessario essere registrato nel sistema per reperire questa informazione
     public List<ConsulenteFinanziario> richiediConsulente(TipoSettore tipoSettore) throws Exception {
         List<ConsulenteFinanziario> listaConsulenti = new ArrayList<>();
         for(ConsulenteFinanziario consulente: elencoConsulenti.values()){
@@ -205,6 +220,7 @@ public class SistemaBancario {
         }
     }
 
+    //Metodo per confermare il consulente passando l'identificativo e il numero di telefono del cliente che ha scelto il consulente
     public void confermaConsulente(int idConsulente, String telefonoCliente) throws Exception {
         Cliente cliente = verificaCliente(telefonoCliente);
         ConsulenteFinanziario con = elencoConsulenti.get(idConsulente);
@@ -220,6 +236,7 @@ public class SistemaBancario {
         }
     }
 
+    //Metodo che verifica se il cliente è presente nel sistema tramite numero di telefono(univoco)
     private Cliente verificaCliente(String telefonoCliente) throws Exception {
         if(!telefonoCliente.matches("^[0-9]*$")){
             throw new Exception("Errore: inserire numero di telefono con caratteri numerici");
@@ -239,6 +256,7 @@ public class SistemaBancario {
         }
     }
 
+    //Metodo che permette di modificare il tasso di interesse di una delle tre tipologie di conto corrente
     public boolean modificaTassoInteresse(double nuovoTasso, int tipoConto) throws Exception {
         switch(tipoConto)
         {
@@ -262,6 +280,8 @@ public class SistemaBancario {
 
         }
     }
+
+    //Metodo per la modifica del massimo prelevabile di una delle tre tipologie di conto corrente
     public boolean modificaMaxPrelevabile(double nuovoMax, int tipoConto) throws Exception {
         switch(tipoConto)
         {

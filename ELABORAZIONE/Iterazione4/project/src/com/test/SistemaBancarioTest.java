@@ -125,6 +125,7 @@ class SistemaBancarioTest {
         sistema.confermaOperazione();
         sistema.loadConsulenti();
         try {
+            //Il numero di telefono non è associato a nessun cliente quindi ci aspettiamo che vada in catch
             sistema.confermaConsulente(1, "3546499");
             fail("Exception");
         } catch (Exception e) {
